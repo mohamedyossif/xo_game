@@ -1,6 +1,7 @@
 #include<iostream>
 #include <string>
 #include <array>
+#include <cctype>
 
 using namespace std;
 // draw board of the game
@@ -13,7 +14,14 @@ void drawBoard(char matrix[3][3])
 		for (int j = 0; j < 4; j++)
 
 		{
-			cout << "---";
+			if (j == 3)
+			{
+				cout << "----";
+			}
+			else {
+				cout << "---";
+			}
+			
 		}
 		cout << endl;
 		// for | postion 
@@ -71,9 +79,11 @@ array<int,2> FindIndex(char matrix[3][3], int postion)
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 3; j++)
-		{
+		{	
 			// Converts character digits to integer values using ASCII.
 			// Subtracting '0' from the character converts it to the integer value by leveraging ASCII values. 
+			// example : ascall '1' = 49 as int so i will subtract '0' = 48 as int 49 - 48 = 1
+
 			int number = matrix[i][j] - '0';
 			
 			if ( number== postion)
@@ -90,12 +100,13 @@ array<int,2> FindIndex(char matrix[3][3], int postion)
 
 void main()
 {
-	
+// hello worlld
 	char matrix[3][3] = {'1','2','3','4','5','6','7','8','9'};
 	int gameRounds = 0;
 	int postion;
 	char whoWinner;
 	bool isX = true;
+		
 	do {
 		drawBoard(matrix);
 		char XOrO = isX ? 'X' : 'O';
@@ -108,7 +119,19 @@ void main()
 			cin >> postion;
 		}
 		array<int, 2>	arr = FindIndex(matrix, postion);
-		//store value in postion whihc user entered
+		cout << matrix[arr[0]][arr[1]] << endl;
+		cout << arr[0] << " " << arr[1] << endl;
+		cout << postion << endl;
+		
+		int number = matrix[arr[0]][arr[1]] - '0'; 
+		cout << number << endl;
+		// Ensure the user cannot place 'X' or 'O' in a cell that's already occupied.
+		while (isdigit(number))
+		{
+			cout << "Invalid Value sir ,Plz Enter valid postion from 1 to 9 player " << XOrO << " : ";
+			cin >> postion;
+			arr = FindIndex(matrix, postion);
+		}
 		matrix[arr[0]][arr[1]] = XOrO;
 		//To reduce the number of checkWinner operations from 9 to 6 and avoid unnecessary checks, 
 		if (gameRounds > 3)
@@ -122,6 +145,7 @@ void main()
 		}
 			isX = !isX;
 			gameRounds++;
+			//clean console
 		system("cls");
 	} while (gameRounds < 9);
 	 
