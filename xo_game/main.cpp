@@ -100,8 +100,8 @@ array<int,2> FindIndex(char matrix[3][3], int postion)
 
 void main()
 {
-// hello worlld
 	char matrix[3][3] = {'1','2','3','4','5','6','7','8','9'};
+	int checkValue[3][3] = {0};
 	int gameRounds = 0;
 	int postion;
 	char whoWinner;
@@ -119,20 +119,18 @@ void main()
 			cin >> postion;
 		}
 		array<int, 2>	arr = FindIndex(matrix, postion);
-		cout << matrix[arr[0]][arr[1]] << endl;
-		cout << arr[0] << " " << arr[1] << endl;
-		cout << postion << endl;
 		
-		int number = matrix[arr[0]][arr[1]] - '0'; 
-		cout << number << endl;
 		// Ensure the user cannot place 'X' or 'O' in a cell that's already occupied.
-		while (isdigit(number))
+		while (checkValue[arr[0]][arr[1]]!=0)
 		{
 			cout << "Invalid Value sir ,Plz Enter valid postion from 1 to 9 player " << XOrO << " : ";
 			cin >> postion;
 			arr = FindIndex(matrix, postion);
 		}
+
 		matrix[arr[0]][arr[1]] = XOrO;
+		// save 1 to 9 
+		checkValue[arr[0]][arr[1]] = matrix[arr[0]][arr[1]];
 		//To reduce the number of checkWinner operations from 9 to 6 and avoid unnecessary checks, 
 		if (gameRounds > 3)
 		{
