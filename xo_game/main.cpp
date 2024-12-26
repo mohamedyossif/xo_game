@@ -104,7 +104,7 @@ void main()
 	int checkValue[3][3] = {0};
 	int gameRounds = 0;
 	int postion;
-	char whoWinner;
+	char whoWinner=' ';
 	bool isX = true;
 		
 	do {
@@ -138,6 +138,7 @@ void main()
 			if (whoWinner == 'X' || whoWinner == 'O')
 			{
 				cout << "Winner is " << whoWinner << endl;
+				drawBoard(matrix);
 				break;
 			}
 		}
@@ -147,7 +148,7 @@ void main()
 		system("cls");
 	} while (gameRounds < 9);
 	 
-	if (whoWinner != 'X' && whoWinner != 'O')
+	if (whoWinner==' ')
 	{
 		cout << "Game Over " << endl;
 	}
